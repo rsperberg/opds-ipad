@@ -1,0 +1,29 @@
+"Label": {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	color: "white",
+}
+
+"#leftWin": {
+	barColor: "#eb67b7",
+	titleAttributes:  {
+        color:'#fff'
+    }
+}
+
+"#rightWin": {
+	barColor: "#6a66b2",
+	titleAttributes:  {
+        color:'#fff'
+    }
+}
+
+".feedsy": {
+	color: "#f5d313",
+	font: {
+		fontSize: 24
+	},
+	titleAttributes:  {
+        color:'#fff'
+    }
+}

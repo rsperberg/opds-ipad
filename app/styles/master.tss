@@ -1,0 +1,36 @@
+'.entry': {
+	height: 60
+}
+
+'.image-entry': {
+	height: 100
+}
+
+'.cover': {
+	height: 100
+}
+
+
+"feedsList": {
+	defaultItemTemplate: "feedTemplate"
+}
+'#titleText': {
+	color: "#f5d313",
+	width: Titanium.UI.SIZE,
+	left: 10,
+	height: 30,
+
+	wordWrap: false,
+	ellipsize: true
+}
+
+'#infoLine': {
+	top: 30,
+	width: Titanium.UI.SIZE,
+	height: 30,
+	font: {
+		fontSize: 16,
+		fontStyle: "italic"
+	},
+	color: '#eb67b7'
+}
