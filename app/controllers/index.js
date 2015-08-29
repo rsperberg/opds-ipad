@@ -60,7 +60,7 @@ function clickedTableView(_event) {
 
 	var feedData = getJSON(feedUrl);
 	feedData.then(
-		Ti.API.info('feedBack var is '+JSON.stringify(feedData))
+		Ti.API.info('feedData var is '+JSON.stringify(feedData))
 	);
 	Ti.API.info('feedBack var 2 is '+JSON.stringify(feedBack));
 }
