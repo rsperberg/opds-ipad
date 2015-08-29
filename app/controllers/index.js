@@ -1,5 +1,7 @@
-var getFeed = require("getFeed");
-var feedData;
+var getFeed = require("getfeed");
+var Promise = require('org.favo.promise');
+var XMLTools = require("XMLTools");
+var feedBack = {};
 
 var opdsfeeds = [
 	{title:'FeedBooks All', url:'http://www.feedbooks.com/catalog.atom', infoLine:"Entrypoint to all FeedBooks feeds", hasChild:true},
@@ -17,18 +19,50 @@ var opdsfeeds = [
 
 $.allFeeds.data = opdsfeeds;
 
+function getJSON (url, param) {
+    var promise = Promise.defer();
+    Ti.API.log("getJSON", url, param);
+    var client = Titanium.Network.createHTTPClient();
+    client.onload = function () {
+        Ti.API.log("getJSON", "response received", url);
+
+        try {
+        		var xml = this.responseXML;
+//			Ti.API.info('xml in loadUrl xhr section is: '+xml);	
+			var opdsJson = new XMLTools(xml);
+			Ti.API.info('jsonResult parsed: '+opdsJson.toJSON());
+
+            // var data = JSON.parse(this.responseText);
+            promise.resolve(xml);
+            feedBack = opdsJson.toJSON();
+        }
+        catch (e) {
+            promise.reject(e);
+        }
+    };
+
+    client.onerror = function () {
+        promise.reject(this);
+    };
+
+    client.open('GET', url);
+    client.send(param);
+
+    return promise;
+}
+
+
+
 function clickedTableView(_event) {
 	Ti.API.info('Clicked on '+_event.index);
 	Ti.API.info('Clicked on url: '+opdsfeeds[_event.index].url);
 	var feedUrl = opdsfeeds[_event.index].url;
-	function f() {
-  		Ti.API.info('feedData info is '+getFeed(feedUrl));
-	}
-	setTimeout(f, 2000);
-	feedData = getFeed(feedUrl);
-	Ti.API.info('feedData var is '+feedData);
 
-	
+	var feedData = getJSON(feedUrl);
+	feedData.then(
+		Ti.API.info('feedBack var is '+JSON.stringify(feedData))
+	);
+	Ti.API.info('feedBack var 2 is '+JSON.stringify(feedBack));
 }
 
 $.splitWin.open();

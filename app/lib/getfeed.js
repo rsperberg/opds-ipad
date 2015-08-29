@@ -101,4 +101,6 @@ function loadUrl(url, callback) {
 	xhr.open('GET', url);
 	xhr.send();
 }
+
+
 module.exports = getFeed;
